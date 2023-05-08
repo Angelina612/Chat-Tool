@@ -4,3 +4,8 @@
     overflow-y: scroll;
     scrollbar-width: none;
 }
+
+.sent-time {
+    display: flex;
+    justify-content: flex-end;
+}

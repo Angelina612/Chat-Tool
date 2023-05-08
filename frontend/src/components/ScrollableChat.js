@@ -7,6 +7,8 @@ import {
   isSameUser,
 } from "../config/ChatLogics";
 import { ChatState } from "../Context/ChatProvider";
+import { formatDate } from "../utils/utils";
+import "./styles.css"
 
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
@@ -42,6 +44,10 @@ const ScrollableChat = ({ messages }) => {
               }}
             >
               {m.content}
+              <br/>
+              <div className="sent-time">
+                  {formatDate(m.createdAt)}
+              </div>
             </span>
           </div>
         ))}
