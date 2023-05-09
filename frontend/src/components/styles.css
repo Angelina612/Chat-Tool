@@ -8,4 +8,5 @@
 .sent-time {
     display: flex;
     justify-content: flex-end;
+    font-size: 75%;
 }

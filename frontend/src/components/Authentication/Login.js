@@ -111,7 +111,7 @@ const Login = () => {
         Login
       </Button>
 
-      <Button
+      {/* <Button
       variant="solid"
         colorScheme="red"
         width="100%"
@@ -121,7 +121,7 @@ const Login = () => {
         }}
       >
         Get guest user credentials
-      </Button>
+      </Button> */}
     </VStack>
   )
 }

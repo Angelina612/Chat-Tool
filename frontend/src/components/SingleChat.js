@@ -8,7 +8,9 @@ import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 import Lottie from "lottie-react";
 import animationData from "../animations/typing.json";
-
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import MicIcon from '@mui/icons-material/Mic';
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
@@ -22,6 +24,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
+  const [file, setFile] = useState();
+  // const [image, setImage] = useState();
   const toast = useToast();
 
   const defaultOptions = {
@@ -156,6 +160,39 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }, timerLength);
   };
 
+  const uploadFile = async (event) => {
+    
+    try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        setFile(event.target.files[0]);
+        setNewMessage(event.target.files[0].name);
+        const { data } = await axios.post(
+          "/api/message",
+          {
+            content: file,
+            chatId: selectedChat,
+          },
+          config
+        );
+        socket.emit("new message", data);
+        setMessages([...messages, data]);
+      } catch (error) {
+        toast({
+          title: "Error Occured!",
+          description: "Failed to upload File",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+  }
+
   return (
     <>
       {selectedChat ? (
@@ -185,7 +222,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </>
               ) : (
                 <>
-                  {selectedChat.chatName.toUpperCase()}
+                  {selectedChat.chatName}
                   <UpdateGroupChatModal
                     fetchMessages={fetchMessages}
                     fetchAgain={fetchAgain}
@@ -218,33 +255,52 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <ScrollableChat messages={messages} />
               </div>
             )}
-
-            <FormControl
-              onKeyDown={sendMessage}
-              id="first-name"
-              isRequired
-              mt={3}
-            >
-              {istyping ? (
-                <div>
-                  <Lottie
-                    options={defaultOptions}
-                    // height={100}
-                    width={70}
-                    style={{ marginBottom: 15, marginLeft: 0 }}
-                  />
-                </div>
-              ) : (
-                <></>
-              )}
-              <Input
-                variant="filled"
-                bg="#E0E0E0"
-                placeholder="Enter a message.."
-                value={newMessage}
-                onChange={typingHandler}
-              />
-            </FormControl>
+            <Box 
+              display="flex"
+              alignItems="center"
+              width="100%"
+              height="100px"
+              >                  
+              <FormControl
+                onKeyDown={sendMessage}
+                id="first-name"
+                isRequired
+                mt={3}
+              >
+                {istyping ? (
+                  <div>
+                    <Lottie
+                      options={defaultOptions}
+                      // height={100}
+                      width={70}
+                      style={{ marginBottom: 15, marginLeft: 0 }}
+                    />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <Input
+                  variant="filled"
+                  bg="#E0E0E0"
+                  placeholder="Message"
+                  value={newMessage}
+                  onChange={typingHandler}
+                />
+              </FormControl>
+              <InsertEmoticonIcon style={{marginLeft: 15}}/> 
+              <label for="fileInput">
+                <AttachFileIcon style={{
+                  transform: 'rotate(40deg)',
+                  margin: 15
+                }}/>                
+              </label>
+              <Input type="file" 
+                id="fileInput"
+                style={{display: "none"}}
+                onChange={uploadFile}
+                />
+              <MicIcon/>
+            </Box>
           </Box>
         </>
       ) : (
