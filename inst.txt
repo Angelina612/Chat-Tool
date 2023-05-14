@@ -8,6 +8,7 @@ npm i nodemon
 nodemon backend/server.js
 npm uninstall -g create-react-app
 npm i create-react-app
+npm install react-scripts@latest
 npx create-react-app frontend
     npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
     package.json -> "proxy": "http://127.0.0.1:5000"
@@ -25,6 +26,7 @@ npm i express-async-handler
 npm i jsonwebtoken
 npm i bcrypt
 npm i @chakra-ui/icons
+npm i @mui/icons-material
 npm i react-notification-badge --legacy-peer-deps
 npm i react-scrollable-feed
 
