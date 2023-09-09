@@ -1,3 +1,44 @@
 # Chat-Tool
 
 ## MERN chat application
+
+A chat Application using MongoDB, Express, React and NodeJS
+
+### Instructions
+```
+npm init
+    package name: talk-a-tive
+npm i express
+node backend/server.js
+npm start
+npm i dotenv
+npm i nodemon
+nodemon backend/server.js
+npm uninstall -g create-react-app
+npm i create-react-app
+npm install react-scripts@latest
+npx create-react-app frontend
+    npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
+    package.json -> "proxy": "http://127.0.0.1:5000"
+    npm install react-router-dom@5
+    HomePage-> rafce
+    npm i axios
+Proxy Error? Run backend also
+npm i mongoose
+
+display="flex" instead of d 
+do not connect mongodb using intranet
+
+npm i colors
+npm i express-async-handler
+npm i jsonwebtoken
+npm i bcrypt
+npm i @chakra-ui/icons
+npm i @mui/icons-material
+npm i react-notification-badge --legacy-peer-deps
+npm i react-scrollable-feed
+
+npm i socket.io
+npm i socket.io-client , frontend
+npm i lottie-react
+```
